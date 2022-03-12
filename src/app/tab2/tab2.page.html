@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            Ajout annonce
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <button class="btn"><i class="fa fa-arrow-left"></i> Retour</button>
+    <strong class="btnn">Ajouter une annonce</strong>
+    <p>Photo du dechet</p>
+    <div class="edi">
+        <button class="btn"><i class="fa fa-edit"></i> </button>
+    </div>
+    <div class=phot>
+        <ion-label></ion-label>
+        <ion-input type="file" accept="image/*,.pdf" placeholder="photo-annonce.jpg" ngModel></ion-input>
+    </div>
+    <form [formGroup]="annonce" (ngSubmit)="submitForm()" novalidate>
+        <ion-item lines="none">
+            <ion-input formControlName="description" type="text" placeholder="description"></ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.description.errors?.required">
+            description obligatoire.
+        </span>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.description.errors?.minlength">
+            Minimum 2 caracteres.
+        </span>
+        <ion-item style="margin-top: 5px;" lines="none">
+
+            <ion-input formControlName="geolocalisation" type="text" placeholder="geo" required></ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.geolocalisation.errors?.required">
+            geolocalisation est obligatoire.
+        </span>
+
+        <ion-item style="margin-top: 5px;">
+            <ion-label>Categorie</ion-label>
+            <ion-select class="custom-options" formControlName="categorie">
+                <ion-select-option *ngFor="let categorie of listeCategorie" value="{{categorie.idcat}}">
+                    {{categorie.type}}</ion-select-option>
+
+            </ion-select>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.categorie.errors?.required">
+            Selectionner une categorie?
+        </span>
+        <ion-item style="margin-top: 5px;">
+            <ion-label>Etat</ion-label>
+            <ion-select class="custom-options" formControlName="Etat">
+                <ion-select-option value="Activer">activer</ion-select-option>
+                <ion-select-option value="Desactiver">desactiver</ion-select-option>
+
+            </ion-select>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.Etat.errors?.required">
+            Selectionner un etat?
+        </span>
+        <ion-row>
+            <ion-col>
+                <ion-button fill="clear" type="submit" expand="block">Valider</ion-button>
+            </ion-col>
+
+        </ion-row>
+
+    </form>
+
+</ion-content>
