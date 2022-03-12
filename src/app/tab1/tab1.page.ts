@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AnnonceServiceService } from '../Services/annonce-service.service';
+import { CategorieServiceService } from '../categorie/categorie-service.service';
 import { IonSlides, PopoverController } from '@ionic/angular';
 import { ValiderAnnoncePage } from './ValiderAnnonce/valider-annonce/valider-annonce.page';
 
@@ -10,12 +11,14 @@ import { ValiderAnnoncePage } from './ValiderAnnonce/valider-annonce/valider-ann
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
+  listCategorie : any;
   photo = environment.URLPhoto;
   annonce : any;
 
   @ViewChild('picSlider',  {static: false}) viewer: IonSlides;
   constructor(
     private aService : AnnonceServiceService,
+    private categorieService : CategorieServiceService,
     public popover: PopoverController
   ) { }
   slideOpts = {
@@ -34,6 +37,13 @@ export class Tab1Page implements OnInit {
       this.annonce = res;
       console.log(this.annonce);
       
+    })
+  }
+
+  getCategorie(){
+    this.categorieService.listeCategorie().subscribe(res=>{
+      this.listCategorie = res;
+      console.log(this.listCategorie); 
     })
   }
 
